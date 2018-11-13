@@ -4,25 +4,25 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-public class User {
+public class Users {
     @Id
     private String id;
-    private String login;
+    private String username;
     private String password;
 
-    public User(){}
+    public Users(){}
 
-    public User(String login, String password) {
-        this.login = login;
+    public Users(String username, String password) {
+        this.username = username;
         this.password = password;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

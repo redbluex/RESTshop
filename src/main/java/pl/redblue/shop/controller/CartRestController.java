@@ -6,6 +6,7 @@ import pl.redblue.shop.domain.Cart;
 import pl.redblue.shop.service.CartService;
 
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -25,6 +26,11 @@ public class CartRestController {
     @GetMapping("/single/{id}")
     public Cart getCartById(@PathVariable String id){
         return cartService.findById(id);
+    }
+
+    @PostMapping("/single/create/{productId}")
+    public Cart createCart(@PathVariable String productId, Principal principal){
+        return cartService.create(productId, principal);
     }
 
     //deleting cart by id
