@@ -26,4 +26,5 @@ public class MongoUserDetailsService implements UserDetailsService{
         List<SimpleGrantedAuthority> authorities = Arrays.asList(new SimpleGrantedAuthority("user"));
         return new User(user.getUsername(), user.getPassword(), authorities);
     }
+
 }

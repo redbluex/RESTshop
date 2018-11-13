@@ -26,8 +26,11 @@ public class UserService implements ServiceInterface<Users> {
 
     @Override
     public Users create(Users obj) {
-        obj.setPassword(passwordEncoder.encode(obj.getPassword()));
-        return userRepository.save(obj);
+        if(userRepository.findByUsername(obj.getUsername())==null){
+            obj.setPassword(passwordEncoder.encode(obj.getPassword()));
+            userRepository.save(obj);
+        }
+        return obj;
     }
 
     @Override

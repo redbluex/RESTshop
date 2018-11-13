@@ -24,8 +24,8 @@ public class CartRestController {
 
     //Cart found by id
     @GetMapping("/single/{id}")
-    public Cart getCartById(@PathVariable String id){
-        return cartService.findById(id);
+    public Cart getCartById(@PathVariable String id, Principal principal){
+        return cartService.findById(id, principal);
     }
 
     @PostMapping("/single/create/{productId}")
@@ -41,14 +41,14 @@ public class CartRestController {
 
     //adding a product to cart
     @PostMapping("/single/{id}/addproduct/{productId}")
-    public void addProductToCart(@PathVariable String id, @PathVariable String productId){
-        cartService.addProduct(id, productId);
+    public void addProductToCart(@PathVariable String id, @PathVariable String productId, Principal principal){
+        cartService.addProduct(id, productId, principal);
     }
 
     //deleting a product(s) from cart
     @PostMapping("/single/{id}/deleteproduct/{productId}")
-    public void deleteProductInCart(@PathVariable String id, @PathVariable String productId){
-        cartService.deleteProduct(id, productId);
+    public void deleteProductInCart(@PathVariable String id, @PathVariable String productId, Principal principal){
+        cartService.deleteProduct(id, productId, principal);
     }
 
     @GetMapping("/single/{id}/sum")

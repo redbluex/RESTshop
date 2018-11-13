@@ -17,6 +17,8 @@ public class Cart {
         this.idClient = idClient;
     }
 
+    public Cart(){}
+
     public List<Product> getProducts() {
         return products;
     }

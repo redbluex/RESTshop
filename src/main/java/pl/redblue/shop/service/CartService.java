@@ -35,9 +35,12 @@ public class CartService {
     }
 
 
-    public Cart findById(String id) {
+    public Cart findById(String id, Principal principal) {
         Cart cart = cartRepository.findById(id).get();
-        return cart;
+        if(cart.getIdClient().equals(principal.getName()))
+            return cart;
+        else
+            return new Cart();
     }
 
 
@@ -49,23 +52,26 @@ public class CartService {
         productRepository.deleteById(id);
     }
 
-    public void deleteProduct(String id, String productId){
+    public void deleteProduct(String id, String productId,Principal principal){
         Cart cart = cartRepository.findById(id).get();
-        cart.getProducts().removeIf(obj -> obj.getId().equals(productId));
-        cartRepository.save(cart);
+        if(cart.getIdClient().equals(principal.getName())) {
+            cart.getProducts().removeIf(obj -> obj.getId().equals(productId));
+            cartRepository.save(cart);
+        }
     }
 
-    public void addProduct(String id, String productId) {
+    public void addProduct(String id, String productId, Principal principal) {
         Cart cart = cartRepository.findById(id).get();
-        Product product = productRepository.findById(productId).get();
-        cart.getProducts().add(product);
-        cartRepository.save(cart);
+        if(cart.getIdClient().equals(principal.getName())) {
+            Product product = productRepository.findById(productId).get();
+            cart.getProducts().add(product);
+            cartRepository.save(cart);
+        }
     }
 
     public double sumOfProducts(String id) {
         Cart cart = cartRepository.findById(id).get();
         return cart.getProducts().stream().mapToDouble(x->x.getPrice())
                 .sum();
-
     }
 }
